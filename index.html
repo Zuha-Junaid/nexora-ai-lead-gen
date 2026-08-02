@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nexora AI - Global Lead Generation & Outreach Agent</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- ChartJS -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #0b0f19;
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .gradient-border {
+      position: relative;
+      background: #111827;
+      border-radius: 1rem;
+    }
+    .gradient-border::before {
+      content: '';
+      position: absolute;
+      top: -1px; left: -1px; right: -1px; bottom: -1px;
+      background: linear-gradient(135deg, #4f46e5, #a855f7, #ec4899);
+      border-radius: 1rem;
+      z-index: -1;
+      opacity: 0.4;
+      transition: opacity 0.3s ease;
+    }
+    .gradient-border:hover::before {
+      opacity: 0.8;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #1f2937;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #4b5563;
+      border-radius: 3px;
+    }
+    .pulse-glow {
+      box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.7);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 10px rgba(168, 85, 247, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(168, 85, 247, 0);
+      }
+    }
+  </style>
+</head>
+<body class="text-gray-100 min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header class="border-b border-gray-800 bg-gray-900/80 backdrop-blur sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="bg-indigo-600 p-2 rounded-lg text-white pulse-glow">
+          <i data-lucide="cpu" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <span class="font-extrabold text-xl tracking-tight text-white flex items-center">
+            NEXORA<span class="gradient-text ml-1.5 font-black">AI AGENT</span>
+          </span>
+          <p class="text-xs text-gray-400">Global Outbound & Lead Engine</p>
+        </div>
+      </div>
+
+      <!-- Links & Instagram Target -->
+      <div class="flex items-center space-x-4">
+        <a href="https://www.instagram.com/nexora.rhm?igsh=MWlhMTNyZ2o1eDRydg%3D%3D&utm_source=qr" 
+           target="_blank" 
+           class="flex items-center space-x-2 px-3 py-1.5 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white rounded-full text-xs font-semibold transition shadow-lg shadow-pink-500/10">
+          <i data-lucide="instagram" class="w-4 h-4"></i>
+          <span>nexora.rhm</span>
+        </a>
+        <span class="h-4 w-px bg-gray-800"></span>
+        <div class="flex items-center space-x-2">
+          <span class="relative flex h-3.5 w-3.5">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-emerald-500"></span>
+          </span>
+          <span class="text-xs font-medium text-emerald-400 uppercase tracking-widest">AGENT LIVE</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    
+    <!-- Dashboard Overview Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+      
+      <!-- Card 1: Total Leads -->
+      <div class="bg-gray-900 border border-gray-800 rounded-xl p-5 flex items-center justify-between">
+        <div class="space-y-1">
+          <p class="text-xs font-medium text-gray-400 uppercase tracking-wider">Total Leads Scored</p>
+          <h3 class="text-2xl font-bold" id="stat-total-leads">0</h3>
+          <p class="text-xs text-emerald-400 flex items-center">
+            <i data-lucide="trending-up" class="w-3 h-3 mr-1"></i> +12% this week
+          </p>
+        </div>
+        <div class="p-3 rounded-lg bg-indigo-500/10 text-indigo-400">
+          <i data-lucide="users" class="w-6 h-6"></i>
+        </div>
+      </div>
+
+      <!-- Card 2: AI Pitches Drafted -->
+      <div class="bg-gray-900 border border-gray-800 rounded-xl p-5 flex items-center justify-between">
+        <div class="space-y-1">
+          <p class="text-xs font-medium text-gray-400 uppercase tracking-wider">AI Pitches Crafted</p>
+          <h3 class="text-2xl font-bold" id="stat-pitches">0</h3>
+          <p class="text-xs text-purple-400 flex items-center">
+            <i data-lucide="sparkles" class="w-3 h-3 mr-1"></i> Highly tailored outreach
+          </p>
+        </div>
+        <div class="p-3 rounded-lg bg-purple-500/10 text-purple-400">
+          <i data-lucide="message-square-code" class="w-6 h-6"></i>
+        </div>
+      </div>
+
+      <!-- Card 3: Avg Fit Score -->
+      <div class="bg-gray-900 border border-gray-800 rounded-xl p-5 flex items-center justify-between">
+        <div class="space-y-1">
+          <p class="text-xs font-medium text-gray-400 uppercase tracking-wider">Avg Lead Fit Score</p>
+          <h3 class="text-2xl font-bold" id="stat-avg-score">0%</h3>
+          <p class="text-xs text-blue-400 flex items-center">
+            <i data-lucide="shield-check" class="w-3 h-3 mr-1"></i> Match Accuracy
+          </p>
+        </div>
+        <div class="p-3 rounded-lg bg-blue-500/10 text-blue-400">
+          <i data-lucide="check-circle" class="w-6 h-6"></i>
+        </div>
+      </div>
+
+      <!-- Card 4: Global Coverage -->
+      <div class="bg-gray-900 border border-gray-800 rounded-xl p-5 flex items-center justify-between">
+        <div class="space-y-1">
+          <p class="text-xs font-medium text-gray-400 uppercase tracking-wider">Active Countries</p>
+          <h3 class="text-2xl font-bold" id="stat-countries">0</h3>
+          <p class="text-xs text-pink-400 flex items-center">
+            <i data-lucide="globe" class="w-3 h-3 mr-1"></i> Worldwide Channels
+          </p>
+        </div>
+        <div class="p-3 rounded-lg bg-pink-500/10 text-pink-400">
+          <i data-lucide="globe" class="w-6 h-6"></i>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Live Control & Log Center -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      
+      <!-- Left Column: Settings and Custom Pitch Prompts -->
+      <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 space-y-6 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-base font-bold text-white flex items-center">
+              <i data-lucide="sliders" class="w-5 h-5 mr-2 text-indigo-400"></i>
+              Agent Target Settings
+            </h3>
+            <span class="text-[10px] bg-indigo-500/15 text-indigo-400 px-2 py-0.5 rounded-full font-semibold uppercase tracking-wider">Configure</span>
+          </div>
+
+          <form id="config-form" class="space-y-4">
+            <div>
+              <label class="block text-xs font-semibold text-gray-400 mb-1">Target Business Niches</label>
+              <input type="text" id="cfg-niche" class="w-full bg-gray-950 border border-gray-800 rounded-lg px-3 py-2 text-sm text-gray-200 focus:outline-none focus:border-indigo-500 transition">
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-gray-400 mb-1">Geographic Regions</label>
+              <input type="text" id="cfg-regions" class="w-full bg-gray-950 border border-gray-800 rounded-lg px-3 py-2 text-sm text-gray-200 focus:outline-none focus:border-indigo-500 transition">
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-semibold text-gray-400 mb-1">Min. Lead Score</label>
+                <input type="number" id="cfg-min-score" min="50" max="100" class="w-full bg-gray-950 border border-gray-800 rounded-lg px-3 py-2 text-sm text-gray-200 focus:outline-none focus:border-indigo-500 transition">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-gray-400 mb-1">Outreach Mode</label>
+                <select id="cfg-auto-outreach" class="w-full bg-gray-950 border border-gray-800 rounded-lg px-3 py-2 text-sm text-gray-200 focus:outline-none focus:border-indigo-500 transition">
+                  <option value="false">Draft Only (Manual Approval)</option>
+                  <option value="true">Auto Outbound (Email/IG)</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-gray-400 mb-1">AI Prompt Instruction Context</label>
+              <textarea id="cfg-prompt" rows="3" class="w-full bg-gray-950 border border-gray-800 rounded-lg px-3 py-2 text-xs text-gray-300 focus:outline-none focus:border-indigo-500 transition resize-none"></textarea>
+            </div>
+
+            <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-xs py-2 px-4 rounded-lg transition flex items-center justify-center space-x-2 shadow-lg shadow-indigo-600/15">
+              <i data-lucide="save" class="w-4 h-4"></i>
+              <span>Save Agent Guidelines</span>
+            </button>
+          </form>
+        </div>
+
+        <div class="pt-6 border-t border-gray-800 space-y-3">
+          <div class="bg-gray-950 border border-gray-800 rounded-lg p-3.5 flex items-center justify-between">
+            <div>
+              <p class="text-xs font-bold text-white">Manual Outbound Scan</p>
+              <p class="text-[10px] text-gray-400">Force AI agent search cycle</p>
+            </div>
+            <button id="btn-manual-scan" class="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold text-xs px-3 py-1.5 rounded-lg transition shadow-md shadow-indigo-500/10 flex items-center space-x-1.5">
+              <i data-lucide="search-code" class="w-3.5 h-3.5"></i>
+              <span>Scan Now</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Real-time Live Log Feed -->
+      <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 lg:col-span-2 flex flex-col h-[480px]">
+        <div class="flex items-center justify-between pb-4 border-b border-gray-800">
+          <div>
+            <h3 class="text-base font-bold text-white flex items-center">
+              <i data-lucide="terminal" class="w-5 h-5 mr-2 text-emerald-400"></i>
+              Nexora Agent Live Activity Log
+            </h3>
+            <p class="text-xs text-gray-400">Continuous global directory & IG lead-scoring updates</p>
+          </div>
+          <button id="btn-clear-logs" class="text-xs text-gray-400 hover:text-white transition flex items-center space-x-1">
+            <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+            <span>Clear</span>
+          </button>
+        </div>
+
+        <div id="log-container" class="flex-grow overflow-y-auto py-4 space-y-2.5 custom-scrollbar text-xs font-mono">
+          <!-- Live logs injected here -->
+        </div>
+
+        <div class="pt-3 border-t border-gray-800 flex items-center justify-between text-xs text-gray-400">
+          <span class="flex items-center">
+            <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 mr-2 animate-pulse"></span>
+            Agent pipeline heartbeat ok
+          </span>
+          <span id="log-count">0 items in log</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Active Global Leads Management CRM -->
+    <div class="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden">
+      
+      <!-- CRM Header & Controls -->
+      <div class="p-6 border-b border-gray-800 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <h2 class="text-lg font-bold text-white flex items-center">
+            <i data-lucide="contact-2" class="w-5 h-5 mr-2 text-purple-400"></i>
+            Active Global Leads CRM
+          </h2>
+          <p class="text-xs text-gray-400">AI-discovered companies matching Nexora profile requiring custom software development</p>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-3">
+          <!-- Search input -->
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 pointer-events-none">
+              <i data-lucide="search" class="w-4 h-4"></i>
+            </span>
+            <input type="text" id="lead-search" placeholder="Search leads/countries..." class="bg-gray-950 border border-gray-800 text-sm rounded-lg pl-9 pr-4 py-1.5 w-60 text-gray-200 placeholder-gray-500 focus:outline-none focus:border-purple-500 transition">
+          </div>
+
+          <!-- Add Manual Lead Button -->
+          <button onclick="toggleLeadModal(true)" class="bg-gray-800 hover:bg-gray-700 text-white font-medium text-xs px-3.5 py-2 rounded-lg transition border border-gray-700 flex items-center space-x-1.5">
+            <i data-lucide="plus" class="w-4 h-4"></i>
+            <span>Insert Target</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Main CRM Grid layout: list left, details and custom template right -->
+      <div class="grid grid-cols-1 lg:grid-cols-12">
+        
+        <!-- Lead List column (left) -->
+        <div class="lg:col-span-5 border-r border-gray-800 h-[600px] flex flex-col">
+          <div class="flex-grow overflow-y-auto custom-scrollbar" id="lead-list-container">
+            <!-- Active leads injected here -->
+          </div>
+        </div>
+
+        <!-- Lead details view & pitch editor (right) -->
+        <div class="lg:col-span-7 bg-gray-950/40 h-[600px] flex flex-col justify-between p-6 overflow-y-auto custom-scrollbar" id="lead-details-pane">
+          <!-- Detail panel fallback if none selected -->
+          <div class="flex flex-col items-center justify-center text-center h-full text-gray-400 space-y-3" id="details-fallback">
+            <div class="p-4 bg-gray-900 border border-gray-800 rounded-full text-indigo-400">
+              <i data-lucide="mouse-pointer-click" class="w-8 h-8"></i>
+            </div>
+            <div>
+              <p class="font-bold text-white text-sm">No Lead Selected</p>
+              <p class="text-xs">Click any prospect on the left to review company profile and customize AI outreach proposals.</p>
+            </div>
+          </div>
+
+          <!-- Selected Lead details (dynamically shown) -->
+          <div class="hidden space-y-6" id="details-content">
+            <div class="flex items-start justify-between">
+              <div class="space-y-1">
+                <span class="inline-block bg-indigo-500/15 text-indigo-400 font-bold text-[10px] uppercase tracking-wider px-2.5 py-0.5 rounded-full" id="details-niche">AI-first SaaS</span>
+                <h3 class="text-xl font-bold text-white" id="details-company">Quantum Finance Inc.</h3>
+                <p class="text-xs text-gray-400 flex items-center space-x-2">
+                  <span id="details-person" class="font-medium text-gray-300">David Chen</span>
+                  <span class="w-1 h-1 bg-gray-700 rounded-full"></span>
+                  <span id="details-role">CTO</span>
+                </p>
+              </div>
+
+              <!-- Score Badge -->
+              <div class="text-center">
+                <div class="w-14 h-14 rounded-full border-2 border-indigo-500 flex flex-col items-center justify-center bg-indigo-500/5 shadow-inner">
+                  <span class="text-lg font-extrabold text-white leading-none" id="details-score">94</span>
+                  <span class="text-[8px] font-medium uppercase text-indigo-400 tracking-wider">FIT %</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Meta attributes grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 bg-gray-900/60 p-4 border border-gray-800/80 rounded-xl text-xs">
+              <div class="space-y-1">
+                <span class="text-gray-400 block font-semibold text-[10px] uppercase tracking-wider">Country</span>
+                <span class="text-white font-medium flex items-center" id="details-country">
+                  <i data-lucide="globe-2" class="w-3.5 h-3.5 mr-1.5 text-blue-400"></i> United States
+                </span>
+              </div>
+              <div class="space-y-1">
+                <span class="text-gray-400 block font-semibold text-[10px] uppercase tracking-wider">Discovery Source</span>
+                <span class="text-white font-medium flex items-center" id="details-source">
+                  <i data-lucide="search" class="w-3.5 h-3.5 mr-1.5 text-emerald-400"></i> LinkedIn Scrape
+                </span>
+              </div>
+              <div class="space-y-1">
+                <span class="text-gray-400 block font-semibold text-[10px] uppercase tracking-wider">Website URL</span>
+                <a href="#" target="_blank" class="text-indigo-400 hover:underline font-medium flex items-center" id="details-website">
+                  <i data-lucide="external-link" class="w-3.5 h-3.5 mr-1.5 text-indigo-400"></i> Visit site
+                </a>
+              </div>
+              <div class="space-y-1">
+                <span class="text-gray-400 block font-semibold text-[10px] uppercase tracking-wider">Direct Email</span>
+                <span class="text-white font-medium truncate block" id="details-email">david@quantum.com</span>
+              </div>
+            </div>
+
+            <!-- Description -->
+            <div class="space-y-2">
+              <h4 class="text-xs font-bold text-gray-300 uppercase tracking-widest">Identified Business Opportunities / Need</h4>
+              <p class="text-sm text-gray-300 leading-relaxed bg-gray-900/30 p-3.5 border border-gray-800/50 rounded-lg" id="details-description">
+                Raised $4.2M Series A. Looking to migrate legacy web dashboard to a modern high-performance React application with real-time analytics.
+              </p>
+            </div>
+
+            <!-- AI Outreach Proposal Editor -->
+            <div class="space-y-3 pt-2">
+              <div class="flex items-center justify-between">
+                <h4 class="text-xs font-bold text-purple-400 uppercase tracking-widest flex items-center">
+                  <i data-lucide="wand-2" class="w-4 h-4 mr-1.5 text-purple-400"></i>
+                  Tailored AI Proposal Draft
+                </h4>
+                <div class="flex items-center space-x-2">
+                  <button id="btn-re-generate-pitch" class="text-[10px] bg-purple-500/10 hover:bg-purple-500/20 text-purple-400 px-2.5 py-1 rounded-full font-semibold border border-purple-500/20 flex items-center transition">
+                    <i data-lucide="refresh-cw" class="w-3 h-3 mr-1"></i> Regenerate Draft
+                  </button>
+                </div>
+              </div>
+
+              <!-- Proposal message container -->
+              <div class="relative">
+                <textarea id="details-pitch-textarea" rows="7" class="w-full bg-gray-950 border border-gray-800 text-sm text-gray-200 rounded-xl p-4 focus:outline-none focus:border-purple-500 transition leading-relaxed font-mono text-xs"></textarea>
+              </div>
+
+              <!-- Proposal Action Bar -->
+              <div class="flex flex-wrap items-center justify-between gap-3 bg-gray-900/60 p-3 border border-gray-800 rounded-xl">
+                <div class="flex items-center space-x-2">
+                  <span class="text-xs text-gray-400">Current Status:</span>
+                  <select id="details-status-select" class="bg-gray-950 border border-gray-800 rounded px-2 py-1 text-xs text-indigo-400 font-bold focus:outline-none focus:border-indigo-500 transition">
+                    <option value="New">New</option>
+                    <option value="AI Drafted">AI Drafted</option>
+                    <option value="Contacted">Contacted</option>
+                    <option value="Interested">Interested</option>
+                    <option value="Closed">Closed</option>
+                  </select>
+                </div>
+
+                <div class="flex items-center space-x-2.5">
+                  <button id="btn-send-email" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs px-4 py-2 rounded-lg transition flex items-center space-x-1.5 shadow-md shadow-indigo-600/10">
+                    <i data-lucide="mail-check" class="w-3.5 h-3.5"></i>
+                    <span>Execute Pitch</span>
+                  </button>
+                  <a href="https://www.instagram.com/nexora.rhm?igsh=MWlhMTNyZ2o1eDRydg%3D%3D&utm_source=qr" target="_blank" class="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-xs px-4 py-2 rounded-lg transition flex items-center space-x-1.5 shadow-md shadow-pink-500/10">
+                    <i data-lucide="instagram" class="w-3.5 h-3.5"></i>
+                    <span>Engage on IG</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Add Target Lead Modal -->
+  <div id="add-lead-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+    <div class="bg-gray-900 border border-gray-800 rounded-2xl w-full max-w-xl shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+      
+      <!-- Modal Header -->
+      <div class="p-6 border-b border-gray-800 flex items-center justify-between">
+        <h3 class="text-base font-bold text-white flex items-center">
+          <i data-lucide="user-plus" class="w-5 h-5 mr-2 text-indigo-400"></i>
+          Manually Add High-Value Target
+        </h3>
+        <button onclick="toggleLeadModal(false)" class="text-gray-400 hover:text-white transition">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Modal Form Body -->
+      <form id="add-lead-form" class="p-6 space-y-4">
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-gray-400 mb-1">Company Name *</label>
+            <input type="text" id="m-company" required class="w-full bg-gray-950 border border-gray-800 rounded-lg px-3 py-2 text-sm text-gray-200 focus:outline-none focus:border-indigo-500 transition" placeholder="e.g. Apex Corp">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-400 mb-1">Contact Full Name *</label>
+            <input type="text" id="m-contact" required class="w-full bg-gray-950 border border-gray-800 rounded-lg px-3 py-2 text-sm text-gray-200 focus:outline-none focus:border-indigo-500 transition" placeholder="e.g. John Doe">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-gray-400 mb-1">Corporate Position</label>
+            <input type="text" id="m-role" class="w-full bg-gray-950 border border-gray-800 rounded-lg px-3 py-2 text-sm text-gray-200 focus:outline-none focus:border-indigo-500 transition" placeholder="e.g. CTO / Product Owner">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-400 mb-1">Target Niche</label>
+            <input type="text" id="m-niche" class="w-full bg-gray-950 border border-gray-800 rounded-lg px-3 py-2 text-sm text-gray-200 focus:outline-none focus:border-indigo-500 transition" placeholder="e.g. Fintech / SaaS">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-gray-400 mb-1">Corporate Email</label>
+            <input type="email" id="m-email" class="w-full bg-gray-950 border border-gray-800 rounded-lg px-3 py-2 text-sm text-gray-200 focus:outline-none focus:border-indigo-500 transition" placeholder="e.g. name@company.com">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-400 mb-1">Company Domain / Website</label>
+            <input type="url" id="m-website" class="w-full bg-gray-950 border border-gray-800 rounded-lg px-3 py-2 text-sm text-gray-200 focus:outline-none focus:border-indigo-500 transition" placeholder="e.g. https://apex.com">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-gray-400 mb-1">Target Country</label>
+            <input type="text" id="m-country" class="w-full bg-gray-950 border border-gray-800 rounded-lg px-3 py-2 text-sm text-gray-200 focus:outline-none focus:border-indigo-500 transition" placeholder="e.g. United Kingdom">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-400 mb-1">Target Lead Score (Match Fit %)</label>
+            <input type="number" id="m-score" min="50" max="100" class="w-full bg-gray-950 border border-gray-800 rounded-lg px-3 py-2 text-sm text-gray-200 focus:outline-none focus:border-indigo-500 transition" value="85">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-gray-400 mb-1">Company Challenge / Lead Insight *</label>
+          <textarea id="m-description" required rows="3" class="w-full bg-gray-950 border border-gray-800 rounded-lg px-3 py-2 text-sm text-gray-200 focus:outline-none focus:border-indigo-500 transition resize-none" placeholder="Explain what technical challenges this company is experiencing or why they are a good client candidate..."></textarea>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="flex justify-end space-x-3 pt-3 border-t border-gray-800">
+          <button type="button" onclick="toggleLeadModal(false)" class="bg-gray-800 hover:bg-gray-700 text-white font-medium text-xs px-4 py-2.5 rounded-lg transition">
+            Cancel
+          </button>
+          <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs px-5 py-2.5 rounded-lg transition shadow-md shadow-indigo-600/20">
+            Generate and Add Target
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="border-t border-gray-800 bg-gray-900/40 py-8 text-center text-xs text-gray-500 mt-12">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
+      <p>&copy; 2025 Nexora Lead Generation Solutions. Empowered with Custom Autonomous Agent AI.</p>
+      <div class="flex items-center space-x-4">
+        <a href="https://www.instagram.com/nexora.rhm?igsh=MWlhMTNyZ2o1eDRydg%3D%3D&utm_source=qr" target="_blank" class="hover:text-gray-300 transition">Instagram Profile</a>
+        <span>&bull;</span>
+        <a href="#" class="hover:text-gray-300 transition">Global Directory APIs</a>
+        <span>&bull;</span>
+        <a href="#" class="hover:text-gray-300 transition">AI Pipeline Documentation</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // State management
+    let currentLeads = [];
+    let selectedLead = null;
+    let currentLogs = [];
+
+    // Init Lucide
+    lucide.createIcons();
+
+    // DOM Elements
+    const statTotalLeads = document.getElementById('stat-total-leads');
+    const statPitches = document.getElementById('stat-pitches');
+    const statAvgScore = document.getElementById('stat-avg-score');
+    const statCountries = document.getElementById('stat-countries');
+    const logContainer = document.getElementById('log-container');
+    const logCount = document.getElementById('log-count');
+    const leadListContainer = document.getElementById('lead-list-container');
+    const detailsFallback = document.getElementById('details-fallback');
+    const detailsContent = document.getElementById('details-content');
+    const leadSearch = document.getElementById('lead-search');
+    
+    // Config form inputs
+    const cfgNiche = document.getElementById('cfg-niche');
+    const cfgRegions = document.getElementById('cfg-regions');
+    const cfgMinScore = document.getElementById('cfg-min-score');
+    const cfgAutoOutreach = document.getElementById('cfg-auto-outreach');
+    const cfgPrompt = document.getElementById('cfg-prompt');
+
+    // Details elements
+    const detailsNiche = document.getElementById('details-niche');
+    const detailsCompany = document.getElementById('details-company');
+    const detailsPerson = document.getElementById('details-person');
+    const detailsRole = document.getElementById('details-role');
+    const detailsScore = document.getElementById('details-score');
+    const detailsCountry = document.getElementById('details-country');
+    const detailsSource = document.getElementById('details-source');
+    const detailsWebsite = document.getElementById('details-website');
+    const detailsEmail = document.getElementById('details-email');
+    const detailsDescription = document.getElementById('details-description');
+    const detailsPitchTextarea = document.getElementById('details-pitch-textarea');
+    const detailsStatusSelect = document.getElementById('details-status-select');
+
+    // Fetch and sync data
+    async function init() {
+      await fetchConfig();
+      await refreshLogs();
+      await refreshLeads();
+
+      // Poll server for new logs/leads
+      setInterval(async () => {
+        await refreshLogs();
+        await refreshLeads(false); // don't disrupt selection
+      }, 5000);
+    }
+
+    async function fetchConfig() {
+      try {
+        const res = await fetch('/api/config');
+        const config = await res.json();
+        cfgNiche.value = config.niche;
+        cfgRegions.value = config.regions;
+        cfgMinScore.value = config.minLeadScore;
+        cfgAutoOutreach.value = config.autoOutreach.toString();
+        cfgPrompt.value = config.customPrompt;
+      } catch (err) {
+        console.error('Error fetching config:', err);
+      }
+    }
+
+    // Update config on server
+    document.getElementById('config-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      try {
+        const body = {
+          niche: cfgNiche.value,
+          regions: cfgRegions.value,
+          minLeadScore: parseInt(cfgMinScore.value, 10),
+          autoOutreach: cfgAutoOutreach.value === 'true',
+          customPrompt: cfgPrompt.value
+        };
+        const res = await fetch('/api/config', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
+        });
+        const data = await res.json();
+        alert('AI Agent configurations updated successfully.');
+        await refreshLogs();
+      } catch (err) {
+        console.error('Error saving config:', err);
+      }
+    });
+
+    async function refreshLogs() {
+      try {
+        const res = await fetch('/api/logs');
+        const logs = await res.json();
+        currentLogs = logs;
+        logCount.textContent = `${logs.length} items in log`;
+        
+        logContainer.innerHTML = '';
+        logs.forEach(log => {
+          const item = document.createElement('div');
+          item.className = 'py-1 border-b border-gray-900 flex items-start space-x-2';
+          
+          let icon = 'info';
+          let iconColor = 'text-gray-400';
+          if (log.type === 'success') { icon = 'check'; iconColor = 'text-emerald-400'; }
+          else if (log.type === 'scan') { icon = 'search'; iconColor = 'text-blue-400'; }
+          else if (log.type === 'ai') { icon = 'sparkles'; iconColor = 'text-purple-400'; }
+
+          const timeStr = new Date(log.time).toLocaleTimeString();
+
+          item.innerHTML = `
+            <span class="text-[10px] text-gray-500 shrink-0 font-medium">${timeStr}</span>
+            <i data-lucide="${icon}" class="w-3.5 h-3.5 ${iconColor} shrink-0 mt-0.5"></i>
+            <span class="text-gray-300 leading-relaxed">${log.message}</span>
+          `;
+          logContainer.appendChild(item);
+        });
+        lucide.createIcons();
+      } catch (err) {
+        console.error('Error fetching logs:', err);
+      }
+    }
+
+    async function refreshLeads(allowResetSelection = true) {
+      try {
+        const res = await fetch('/api/leads');
+        const leads = await res.json();
+        currentLeads = leads;
+
+        // Statistics
+        statTotalLeads.textContent = leads.length;
+        statPitches.textContent = leads.filter(l => l.status === 'AI Drafted' || l.status === 'Contacted').length;
+        
+        const sum = leads.reduce((acc, curr) => acc + curr.score, 0);
+        statAvgScore.textContent = leads.length > 0 ? `${Math.round(sum / leads.length)}%` : '0%';
+
+        const uniqueCountries = [...new Set(leads.map(l => l.country))];
+        statCountries.textContent = uniqueCountries.length;
+
+        // Render lead list items
+        renderLeadList();
+
+        // Sync details if a lead is currently selected
+        if (selectedLead) {
+          const updated = leads.find(l => l.id === selectedLead.id);
+          if (updated) {
+            selectedLead = updated;
+            syncLeadDetails();
+          }
+        }
+      } catch (err) {
+        console.error('Error fetching leads:', err);
+      }
+    }
+
+    function renderLeadList() {
+      const query = leadSearch.value.toLowerCase().trim();
+      const filtered = currentLeads.filter(lead => 
+        lead.company.toLowerCase().includes(query) ||
+        lead.country.toLowerCase().includes(query) ||
+        lead.niche.toLowerCase().includes(query) ||
+        lead.contactPerson.toLowerCase().includes(query)
+      );
+
+      leadListContainer.innerHTML = '';
+      if (filtered.length === 0) {
+        leadListContainer.innerHTML = `
+          <div class="text-center p-8 text-gray-500 text-xs">
+            No matching leads found.
+          </div>
+        `;
+        return;
+      }
+
+      filtered.forEach(lead => {
+        const isActive = selectedLead && selectedLead.id === lead.id;
+        const div = document.createElement('div');
+        div.onclick = () => selectLead(lead);
+        div.className = `p-4 border-b border-gray-800 cursor-pointer transition flex items-center justify-between ${
+          isActive ? 'bg-indigo-600/10 border-l-4 border-l-indigo-500' : 'hover:bg-gray-800/40'
+        }`;
+
+        let statusClass = 'bg-gray-800 text-gray-400';
+        if (lead.status === 'New') statusClass = 'bg-blue-500/10 text-blue-400 border border-blue-500/20';
+        else if (lead.status === 'AI Drafted') statusClass = 'bg-purple-500/10 text-purple-400 border border-purple-500/20';
+        else if (lead.status === 'Contacted') statusClass = 'bg-amber-500/10 text-amber-400 border border-amber-500/20';
+        else if (lead.status === 'Interested') statusClass = 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20';
+
+        div.innerHTML = `
+          <div class="space-y-1 pr-3 truncate">
+            <div class="flex items-center space-x-2">
+              <span class="font-bold text-sm text-white block truncate">${lead.company}</span>
+              <span class="text-[10px] bg-gray-950 px-1.5 py-0.5 rounded text-gray-400 font-semibold uppercase">${lead.niche}</span>
+            </div>
+            <p class="text-xs text-gray-400 flex items-center truncate">
+              <i data-lucide="map-pin" class="w-3 h-3 mr-1 shrink-0 text-gray-500"></i>
+              ${lead.country}
+              <span class="w-1 h-1 bg-gray-700 rounded-full mx-2 shrink-0"></span>
+              ${lead.contactPerson}
+            </p>
+          </div>
+          <div class="flex flex-col items-end shrink-0 space-y-1.5">
+            <span class="text-xs font-bold ${lead.score >= 90 ? 'text-emerald-400' : 'text-indigo-400'}">${lead.score}% fit</span>
+            <span class="text-[9px] px-2 py-0.5 rounded-full font-bold uppercase ${statusClass}">${lead.status}</span>
+          </div>
+        `;
+        leadListContainer.appendChild(div);
+      });
+      lucide.createIcons();
+    }
+
+    // Lead list click handler
+    function selectLead(lead) {
+      selectedLead = lead;
+      renderLeadList();
+      syncLeadDetails();
+    }
+
+    function syncLeadDetails() {
+      if (!selectedLead) {
+        detailsFallback.classList.remove('hidden');
+        detailsFallback.classList.add('flex');
+        detailsContent.classList.add('hidden');
+        return;
+      }
+
+      detailsFallback.classList.remove('flex');
+      detailsFallback.classList.add('hidden');
+      detailsContent.classList.remove('hidden');
+
+      // Populate elements
+      detailsNiche.textContent = selectedLead.niche;
+      detailsCompany.textContent = selectedLead.company;
+      detailsPerson.textContent = selectedLead.contactPerson;
+      detailsRole.textContent = selectedLead.role;
+      detailsScore.textContent = selectedLead.score;
+      detailsCountry.innerHTML = `<i data-lucide="globe-2" class="w-3.5 h-3.5 mr-1.5 text-blue-400"></i> ${selectedLead.country}`;
+      detailsSource.innerHTML = `<i data-lucide="search" class="w-3.5 h-3.5 mr-1.5 text-emerald-400"></i> ${selectedLead.source}`;
+      detailsWebsite.href = selectedLead.website;
+      detailsWebsite.innerHTML = `<i data-lucide="external-link" class="w-3.5 h-3.5 mr-1.5 text-indigo-400"></i> ${selectedLead.website.replace('https://', '')}`;
+      detailsEmail.textContent = selectedLead.email;
+      detailsDescription.textContent = selectedLead.description;
+      detailsPitchTextarea.value = selectedLead.aiPitch;
+      detailsStatusSelect.value = selectedLead.status;
+
+      lucide.createIcons();
+    }
+
+    // Live filtering
+    leadSearch.addEventListener('input', renderLeadList);
+
+    // Save status change
+    detailsStatusSelect.addEventListener('change', async () => {
+      if (!selectedLead) return;
+      const status = detailsStatusSelect.value;
+      try {
+        const res = await fetch(`/api/leads/${selectedLead.id}/status`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status })
+        });
+        const updated = await res.json();
+        await refreshLeads(false);
+      } catch (err) {
+        console.error(err);
+      }
+    });
+
+    // Manual outbound scan action
+    document.getElementById('btn-manual-scan').addEventListener('click', async () => {
+      const btn = document.getElementById('btn-manual-scan');
+      btn.disabled = true;
+      btn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> <span>Scanning...</span>`;
+      lucide.createIcons();
+
+      try {
+        const res = await fetch('/api/scan', { method: 'POST' });
+        const data = await res.json();
+        await refreshLogs();
+        await refreshLeads();
+      } catch (err) {
+        console.error(err);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<i data-lucide="search-code" class="w-3.5 h-3.5"></i> <span>Scan Now</span>`;
+        lucide.createIcons();
+      }
+    });
+
+    // Regenerate pitch
+    document.getElementById('btn-re-generate-pitch').addEventListener('click', async () => {
+      if (!selectedLead) return;
+      try {
+        const res = await fetch(`/api/leads/${selectedLead.id}/pitch`, { method: 'POST' });
+        const data = await res.json();
+        selectedLead.aiPitch = data.pitch;
+        selectedLead.status = 'AI Drafted';
+        syncLeadDetails();
+        await refreshLeads(false);
+        await refreshLogs();
+      } catch (err) {
+        console.error(err);
+      }
+    });
+
+    // Execute direct pitch mock
+    document.getElementById('btn-send-email').addEventListener('click', async () => {
+      if (!selectedLead) return;
+      try {
+        const res = await fetch(`/api/leads/${selectedLead.id}/status`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status: 'Contacted' })
+        });
+        const updated = await res.json();
+        
+        // Log manual action success
+        await fetch('/api/logs', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            message: `[Email Outbound Success] Custom tailored pitch dispatched to ${selectedLead.contactPerson} (${selectedLead.email}).`,
+            type: 'success'
+          })
+        });
+
+        alert(`Proposal successfully sent to ${selectedLead.contactPerson} at ${selectedLead.email}!`);
+        await refreshLogs();
+        await refreshLeads(false);
+      } catch (err) {
+        console.error(err);
+      }
+    });
+
+    // Modal toggling
+    function toggleLeadModal(show) {
+      const modal = document.getElementById('add-lead-modal');
+      if (show) {
+        modal.classList.remove('hidden');
+      } else {
+        modal.classList.add('hidden');
+      }
+    }
+
+    // Form submit for adding a manual target
+    document.getElementById('add-lead-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      try {
+        const body = {
+          company: document.getElementById('m-company').value,
+          contactPerson: document.getElementById('m-contact').value,
+          role: document.getElementById('m-role').value,
+          niche: document.getElementById('m-niche').value,
+          email: document.getElementById('m-email').value,
+          website: document.getElementById('m-website').value,
+          country: document.getElementById('m-country').value,
+          score: parseInt(document.getElementById('m-score').value, 10),
+          description: document.getElementById('m-description').value
+        };
+
+        const res = await fetch('/api/leads', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
+        });
+
+        const newLead = await res.json();
+        toggleLeadModal(false);
+        document.getElementById('add-lead-form').reset();
+        await refreshLeads();
+        await refreshLogs();
+        
+        // Select the newly added lead
+        selectLead(newLead);
+      } catch (err) {
+        console.error(err);
+      }
+    });
+
+    // Clear logs handler
+    document.getElementById('btn-clear-logs').addEventListener('click', async () => {
+      if (confirm('Are you sure you want to clear the logs view?')) {
+        logContainer.innerHTML = '';
+        logCount.textContent = '0 items in log';
+      }
+    });
+
+    // Initial run
+    init();
+  </script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "nexora-ai-lead-gen",
+  "version": "1.0.0",
+  "description": "Live AI Lead Generating Agent and Dashboard for Nexora",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "cors": "^2.8.5"
+  }
+}
